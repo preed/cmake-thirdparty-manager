@@ -1,21 +1,14 @@
 #
 # Copyright 2017 Threat Stack, Inc. All Rights Reserved
+#                J. Paul Reed
 #
-
-find_program(GIT_BIN git)
-
-set(THIRDPARTY_REQUIRED_TOOLS
-    GIT_BIN
-)
-
-foreach(_prog ${THIRDPARTY_REQUIRED_TOOLS})
-    if(${_prog} STREQUAL "${_prog}-NOTFOUND")
-        message(FATAL_ERROR "Required tool ${_prog} missing; install and/or add it to your path.")
-    endif()
-endforeach()
 
 set(THIRDPARTY_DIST_DIR ${CMAKE_BINARY_DIR}/thirdparty/dist CACHE INTERNAL "")
 set(THIRDPARTY_OBJ_DIR ${CMAKE_BINARY_DIR}/thirdparty/obj CACHE INTERNAL "")
+
+include(3p-utils.cmake)
+
+_3p_check_required_tools()
 
 # List of thirdparty projects we use
 set(THIRDPARTY_PROJECTS

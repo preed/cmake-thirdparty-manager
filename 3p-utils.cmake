@@ -1,7 +1,21 @@
 #
 # Copyright 2017 Threat Stack, Inc. All Rights Reserved
+#                J. Paul Reed
 #
 # These are macros/functions we need to do various things.
+
+#
+# Check for certain required tools we'll need on the system; right now, we
+# assume Git is the version control system being used because... Git.
+#
+
+macro(_3p_check_required_tools)
+    find_program(GIT_BIN git)
+    if (GIT_BIN STREQUAL "GIT_BIN-NOTFOUND")
+        message(FATAL_ERROR "third_party_manager: required tool missing: git; install and/or add it to your path.")
+    endif()
+endmacro()
+
 #
 # The two functions below allow us to safely include the CPack module multiple
 # times without receiving the "multiple inclusion" warning.
